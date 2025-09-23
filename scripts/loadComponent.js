@@ -9,12 +9,12 @@ function loadComponent(id, url, callback) {
 }
 
 // Load navbar + run theme setup
-loadComponent("navbar", "/components/navbarComp.html", () => {
+loadComponent("navbar", "./components/navbarComp.html", () => {
   initThemeSwitcher();
 });
-loadComponent("hero", "/components/heroComp.html");
-loadComponent("services", "/components/servicesComp.html");
-loadComponent("about", "/components/aboutComp.html");
+loadComponent("hero", "./components/heroComp.html");
+loadComponent("services", "./components/servicesComp.html");
+loadComponent("about", "./components/aboutComp.html");
 
-loadComponent("contact", "/components/contactComp.html");
-loadComponent("footer", "/components/footerComp.html");
+loadComponent("contact", "./components/contactComp.html");
+loadComponent("footer", "./components/footerComp.html");
