@@ -1,0 +1,28 @@
+<link rel="stylesheet" href="../styles/navbarComp.css" />
+
+<nav class="navbar_container">
+  <!-- Left Section -->
+  <div class="navbar_left_section">
+    <div class="navbar_logo_container">
+      <img src="../assets/logo.svg" alt="Mavidia Logo" class="navbar_logo" />
+      <span class="navbar_logo_text">Mavidia </span>
+    </div>
+    <div class="navbar_links">
+      <a onclick="scrollToSection(`about`)" class="navbar_link">About</a>
+      <a onclick="scrollToSection(`services`)" class="navbar_link">Services</a>
+      <a onclick="scrollToSection(`contact`)" class="navbar_link">Contact</a>
+    </div>
+  </div>
+
+  <!-- Right Section -->
+  <div class="navbar_right_section">
+    <div class="navbar_theme_switcher" id="theme-toggle">
+      <i class="bi bi-brightness-high"></i>
+      <!-- <i class="bi bi-moon"></i> -->
+    </div>
+    <button onclick="window.open('https://wa.me/213791779431', '_blank')">
+      Get Started
+    </button>
+    <i class="bi bi-list navbar_hamburger"></i>
+  </div>
+</nav>

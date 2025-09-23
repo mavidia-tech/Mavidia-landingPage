@@ -1,0 +1,148 @@
+.hero_container {
+  height: 82vh;
+  background-color: var(--color-bg-secondary);
+  display: flex;
+  align-items: center;
+  padding: 35px 20px;
+  justify-content: center;
+}
+
+.hero_left_section {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 15px;
+
+  margin-bottom: 120px;
+}
+.hero_left_section .hero_title {
+  font-size: 14px;
+  font-weight: 800;
+  color: var(--color-accent);
+  font-family: "Inter", sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+}
+.hero_left_section .hero_title span {
+  font-size: 30px;
+  margin-left: 5px;
+}
+.hero_left_section h1 {
+  font-size: 40px;
+  font-weight: 700;
+  color: var(--color-text);
+  font-family: "Montserrat", sans-serif;
+  margin-bottom: 20px;
+}
+.hero_left_section .hero_subtitle {
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--color-text-secondary);
+  font-family: "Inter", sans-serif;
+  margin-bottom: 30px;
+  line-height: 1.6;
+}
+.hero_buttons {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+.hero_buttons p {
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--color-text);
+  font-family: "Inter", sans-serif;
+  font-weight: 600;
+  cursor: pointer;
+  transition: color 0.03s ease;
+}
+.hero_buttons p:hover {
+  color: var(--color-accent);
+}
+.hero_left_section button {
+  padding: 8px 15px;
+  border: none;
+  border-radius: var(--border-radius);
+  background-color: var(--color-accent);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 500;
+  font-family: "Inter", sans-serif;
+  cursor: pointer;
+  transition: background-color 0.03s ease;
+}
+.hero_left_section button:hover {
+  background-color: var(--color-hover);
+}
+.hero_card_container {
+  background-color: var(--color-bg);
+  padding: 25px 25px;
+  border-radius: var(--border-radius);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 115px;
+  position: absolute;
+  width: 50%;
+  bottom: 5px;
+  left: 30px;
+  box-shadow: var(--shadow);
+  gap: 10px;
+  border: 1px solid var(--color-border);
+}
+.hero_card_container h1 {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--color-text);
+  font-family: "Montserrat", sans-serif;
+}
+.hero_card_container button {
+  padding: 8px 15px;
+  border: none;
+  border-radius: var(--border-radius);
+  background-color: var(--color-accent);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 500;
+  font-family: "Inter", sans-serif;
+  cursor: pointer;
+  transition: background-color 0.03s ease;
+}
+.hero_card_container button:hover {
+  background-color: var(--color-hover);
+}
+.hero_card_container p {
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--color-text-secondary);
+  font-family: "Inter", sans-serif;
+  margin-top: 5px;
+  line-height: 1.4;
+}
+@media (max-width: 1122px) {
+  .hero_card_container {
+    flex-direction: column;
+    height: auto;
+    text-align: center;
+    width: 80%;
+    margin: 0 auto;
+    left: 0;
+    right: 0;
+  }
+}
+@media (max-width: 780px) {
+  .hero_container {
+    flex-direction: column;
+    height: auto;
+  }
+  .hero_left_section {
+    text-align: center;
+  }
+  .hero_left_section .hero_buttons {
+    margin: 0 auto;
+  }
+  .hero_left_section h1 {
+    font-size: 30px;
+  }
+}

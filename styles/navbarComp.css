@@ -1,0 +1,108 @@
+.navbar_container {
+  height: 8vh;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 35px 20px;
+  background-color: var(--color-bg);
+}
+.navbar_left_section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 30px;
+}
+.navbar_logo_container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.navbar_logo_container img {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  border-radius: 50%;
+}
+.navbar_logo_container span {
+  height: 100%;
+  font-size: 18px;
+  font-weight: 800;
+  font-family: "Montserrat", sans-serif;
+  display: flex;
+  flex-direction: column;
+  margin-top: 3px;
+  color: var(--color-text);
+}
+
+.navbar_links {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+.navbar_links a {
+  text-decoration: none;
+  color: var(--color-text);
+  font-size: 14px;
+  font-weight: 500;
+  font-family: "Inter", sans-serif;
+  transition: color 0.03s ease;
+  cursor: pointer;
+}
+.navbar_links a:hover {
+  color: var(--color-accent);
+}
+
+.navbar_right_section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+.navbar_right_section button {
+  padding: 8px 15px;
+  border: none;
+  border-radius: var(--border-radius);
+  background-color: var(--color-accent);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 500;
+  font-family: "Inter", sans-serif;
+  cursor: pointer;
+  transition: background-color 0.03s ease;
+}
+.navbar_right_section button:hover {
+  background-color: var(--color-hover);
+}
+
+.navbar_theme_switcher i {
+  font-size: 23px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: color 0.03s ease;
+  color: var(--color-text);
+}
+.navbar_theme_switcher i:hover {
+  color: var(--color-accent);
+}
+.navbar_hamburger {
+  display: none;
+  font-size: 23px;
+  /* display: flex; */
+  align-items: center;
+  color: var(--color-text);
+  justify-content: center;
+  cursor: pointer;
+  transition: color 0.03s ease;
+}
+@media (max-width: 630px) {
+  .navbar_hamburger {
+    display: flex;
+  }
+  .navbar_links {
+    display: none;
+  }
+}
