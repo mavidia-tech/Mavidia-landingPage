@@ -1,0 +1,20 @@
+<svg
+            width="120"
+            height="120"
+            viewBox="0 0 120 120"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <!-- Transparent background -->
+            <rect width="120" height="120" rx="20" fill="transparent" />
+
+          
+
+            <!-- SHAPES (Blue) -->
+            <path d="M10 30L50 50V30H10Z" fill="white" />
+            <path d="M30 30V50L50 50H30Z" fill="white" />
+            <path d="M70 30H90V50H70V30Z" fill="white" />
+            <path d="M30 70H50V90H30V70Z" fill="white" />
+            <path d="M70 70L90 110V70H70Z" fill="white" />
+            <path d="M70 70V90L90 90H70Z" fill="white" />
+          </svg>
