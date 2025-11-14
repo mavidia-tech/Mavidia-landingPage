@@ -24,3 +24,8 @@
   font-size: 14px;
   line-height: 1.6;
 }
+@media (max-width: 768px) {
+  .about_container {
+    padding: 20px;
+  }
+}
