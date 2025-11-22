@@ -1,328 +1,1154 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>CRM Dashboard</title>
+    <title>VoyageModerne - Agence de Voyage</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     />
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script>
-      tailwind.config = {
-        theme: {
-          extend: {
-            colors: {
-              primary: "#38b6ff",
-              "primary-light": "#e6f7ff",
-              "sidebar-bg": "#1e293b",
-              "sidebar-text": "#cbd5e1",
-              "sidebar-active": "#38b6ff",
-              "card-bg": "#ffffff",
-              "text-color": "#334155",
-              "light-text": "#64748b",
-              "border-color": "#e2e8f0",
-              success: "#10b981",
-              warning: "#f59e0b",
-              danger: "#ef4444",
-            },
-          },
-        },
-      };
-    </script>
+    <style>
+      body {
+        font-family: "Poppins", sans-serif;
+        font-size: 14px;
+      }
+
+      .hero-video {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        z-index: -1;
+      }
+
+      .floating-icon {
+        animation: float 6s ease-in-out infinite;
+      }
+
+      @keyframes float {
+        0% {
+          transform: translateY(0px);
+        }
+        50% {
+          transform: translateY(-20px);
+        }
+        100% {
+          transform: translateY(0px);
+        }
+      }
+
+      .fade-in {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: all 0.8s ease;
+      }
+
+      .fade-in.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .card-hover {
+        transition: all 0.3s ease;
+      }
+
+      .card-hover:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
+          0 10px 10px -5px rgba(0, 0, 0, 0.04);
+      }
+
+      .tilt-hover {
+        transition: all 0.3s ease;
+      }
+
+      .tilt-hover:hover {
+        transform: perspective(1000px) rotateX(5deg) rotateY(5deg);
+      }
+
+      .icon-hover {
+        transition: all 0.3s ease;
+      }
+
+      .icon-hover:hover {
+        transform: scale(1.1);
+      }
+
+      .ken-burns {
+        animation: kenBurns 20s infinite alternate;
+      }
+
+      @keyframes kenBurns {
+        0% {
+          transform: scale(1);
+        }
+        100% {
+          transform: scale(1.1);
+        }
+      }
+
+      .btn-ripple {
+        position: relative;
+        overflow: hidden;
+      }
+
+      .btn-ripple:after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 5px;
+        height: 5px;
+        background: rgba(255, 255, 255, 0.5);
+        opacity: 0;
+        border-radius: 100%;
+        transform: scale(1, 1) translate(-50%);
+        transform-origin: 50% 50%;
+      }
+
+      .btn-ripple:focus:after {
+        animation: ripple 1s ease-out;
+      }
+
+      input[type="date"]::-webkit-calendar-picker-indicator {
+        cursor: pointer;
+        border-radius: 4px;
+      }
+
+      @keyframes ripple {
+        0% {
+          transform: scale(0, 0);
+          opacity: 0.5;
+        }
+        100% {
+          transform: scale(20, 20);
+          opacity: 0;
+        }
+      }
+
+      .social-hover {
+        transition: all 0.3s ease;
+      }
+
+      .social-hover:hover {
+        transform: rotate(10deg) scale(1.1);
+        filter: brightness(1.2);
+      }
+
+      /* Navbar styles */
+      .navbar {
+        transition: all 0.3s ease;
+      }
+
+      .navbar.scrolled {
+        background-color: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+      }
+
+      .mobile-menu {
+        transition: all 0.3s ease;
+      }
+    </style>
   </head>
-  <body class="bg-gray-50 text-text-color text-sm flex">
-    <!-- Sidebar -->
-    <div
-      class="w-64 bg-sidebar-bg text-sidebar-text h-screen fixed transition-all duration-300 z-50"
+  <body class="bg-gray-50 text-gray-800">
+    <!-- Navigation Bar -->
+    <nav class="navbar fixed top-0 left-0 w-full z-50 py-4">
+      <div class="container mx-auto px-4">
+        <div class="flex justify-between items-center">
+          <!-- Logo -->
+          <div class="flex items-center">
+            <a href="#" class="text-2xl font-bold text-white">
+              <span class="text-teal-400">Voyage</span><span>Moderne</span>
+            </a>
+          </div>
+
+          <!-- Desktop Menu -->
+          <div class="hidden md:flex items-center space-x-8">
+            <a
+              href="#"
+              class="text-white hover:text-teal-300 font-medium transition-colors"
+              >Accueil</a
+            >
+            <a
+              href="#"
+              class="text-white hover:text-teal-300 font-medium transition-colors"
+              >Destinations</a
+            >
+            <a
+              href="#"
+              class="text-white hover:text-teal-300 font-medium transition-colors"
+              >Offres</a
+            >
+            <a
+              href="#"
+              class="text-white hover:text-teal-300 font-medium transition-colors"
+              >À propos</a
+            >
+            <a
+              href="#"
+              class="text-white hover:text-teal-300 font-medium transition-colors"
+              >Contact</a
+            >
+            <button
+              class="bg-teal-500 hover:bg-teal-600 text-white font-semibold py-2 px-6 rounded-full transition-all duration-300 transform hover:scale-105"
+            >
+              Réserver
+            </button>
+          </div>
+
+          <!-- Mobile Menu Button -->
+          <div class="md:hidden">
+            <button
+              id="mobile-menu-button"
+              class="text-white focus:outline-none"
+            >
+              <svg
+                class="w-6 h-6"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M4 6h16M4 12h16M4 18h16"
+                ></path>
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div
+          id="mobile-menu"
+          class="mobile-menu hidden md:hidden mt-4 py-4 bg-white rounded-lg shadow-lg"
+        >
+          <div class="flex flex-col space-y-4 px-4">
+            <a
+              href="#"
+              class="text-gray-800 hover:text-teal-500 font-medium transition-colors"
+              >Accueil</a
+            >
+            <a
+              href="#"
+              class="text-gray-800 hover:text-teal-500 font-medium transition-colors"
+              >Destinations</a
+            >
+            <a
+              href="#"
+              class="text-gray-800 hover:text-teal-500 font-medium transition-colors"
+              >Offres</a
+            >
+            <a
+              href="#"
+              class="text-gray-800 hover:text-teal-500 font-medium transition-colors"
+              >À propos</a
+            >
+            <a
+              href="#"
+              class="text-gray-800 hover:text-teal-500 font-medium transition-colors"
+              >Contact</a
+            >
+            <button
+              class="bg-teal-500 hover:bg-teal-600 text-white font-semibold py-2 px-6 rounded-full transition-all duration-300 transform hover:scale-105 w-full"
+            >
+              Réserver
+            </button>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section
+      class="relative h-screen flex items-center justify-center overflow-hidden"
     >
-      <div class="p-3 border-b border-gray-700 flex items-center gap-2.5">
-        <img src="/logo.svg" />
-        <h1 class="text-white font-semibold text-base">Mavidia CRM</h1>
-      </div>
-      <div class="py-4">
-        <div
-          class="menu-item py-3 px-5 flex items-center gap-3 cursor-pointer transition-all duration-200 bg-gray-800 text-primary border-l-4 border-primary"
-        >
-          <i class="fas fa-home w-5 text-center"></i>
-          <span>Dashboard</span>
-        </div>
-        <div
-          class="menu-item py-3 px-5 flex items-center gap-3 cursor-pointer transition-all duration-200 hover:bg-gray-800 hover:text-white"
-        >
-          <i class="fas fa-users w-5 text-center"></i>
-          <span>Customers</span>
-        </div>
-        <div
-          class="menu-item py-3 px-5 flex items-center gap-3 cursor-pointer transition-all duration-200 hover:bg-gray-800 hover:text-white"
-        >
-          <i class="fas fa-shopping-cart w-5 text-center"></i>
-          <span>Sales</span>
-        </div>
-        <div
-          class="menu-item py-3 px-5 flex items-center gap-3 cursor-pointer transition-all duration-200 hover:bg-gray-800 hover:text-white"
-        >
-          <i class="fas fa-tasks w-5 text-center"></i>
-          <span>Projects</span>
-        </div>
-        <div
-          class="menu-item py-3 px-5 flex items-center gap-3 cursor-pointer transition-all duration-200 hover:bg-gray-800 hover:text-white"
-        >
-          <i class="fas fa-calendar-alt w-5 text-center"></i>
-          <span>Calendar</span>
-        </div>
-        <div
-          class="menu-item py-3 px-5 flex items-center gap-3 cursor-pointer transition-all duration-200 hover:bg-gray-800 hover:text-white"
-        >
-          <i class="fas fa-chart-bar w-5 text-center"></i>
-          <span>Reports</span>
-        </div>
-        <div
-          class="menu-item py-3 px-5 flex items-center gap-3 cursor-pointer transition-all duration-200 hover:bg-gray-800 hover:text-white"
-        >
-          <i class="fas fa-cog w-5 text-center"></i>
-          <span>Settings</span>
-        </div>
-      </div>
-    </div>
+      <video autoplay muted loop class="hero-video">
+        <source
+          src="https://media.istockphoto.com/id/1974547769/fr/vid%C3%A9o/aerial-drone-fly-over-tropical-turquoise-water-pileh-lagoon-krabi-thailand.mp4?s=mp4-640x640-is&k=20&c=740KygJo78ZI5y2xIWnvt5VKIlX8CnA7-07sFNu1yLw="
+          type="video/mp4"
+        />
+        Votre navigateur ne supporte pas la vidéo.
+      </video>
+      <div class="absolute inset-0 bg-black opacity-40"></div>
 
-    <!-- Main Content -->
-    <div class="ml-64 flex-1 p-5">
-      <!-- Header -->
-      <div class="flex justify-between items-center mb-6">
-        <h2 class="text-xl font-semibold text-text-color">Dashboard</h2>
-        <div class="user-info flex items-center gap-4">
-          <div
-            class="user-avatar w-10 h-10 rounded-full bg-primary flex items-center justify-center text-white font-semibold"
+      <div class="relative z-10 text-center text-white px-4 max-w-4xl mt-12">
+        <h1 class="text-4xl md:text-6xl font-bold mb-6 fade-in">
+          Explorez le monde en toute simplicité
+        </h1>
+        <p
+          class="text-xl md:text-2xl mb-10 fade-in"
+          style="animation-delay: 0.3s"
+        >
+          Voyages sur mesure, aventures inoubliables
+        </p>
+        <div
+          class="flex flex-col sm:flex-row justify-center gap-4 fade-in"
+          style="animation-delay: 0.6s"
+        >
+          <button
+            class="bg-teal-500 hover:bg-teal-600 text-white font-semibold py-3 px-8 rounded-full transition-all duration-300 transform hover:scale-105 hover:shadow-lg btn-ripple"
           >
-            JD
+            Planifiez votre voyage
+          </button>
+          <button
+            class="bg-white hover:bg-gray-100 text-teal-600 font-semibold py-3 px-8 rounded-full transition-all duration-300 transform hover:scale-105 hover:shadow-lg"
+          >
+            Découvrez nos destinations
+          </button>
+        </div>
+      </div>
+
+      <!-- Icônes flottantes -->
+      <div
+        class="absolute bottom-10 left-10 floating-icon"
+        style="animation-delay: 0.5s"
+      >
+        <i class="fas fa-plane text-white text-2xl opacity-70"></i>
+      </div>
+      <div
+        class="absolute top-20 right-20 floating-icon"
+        style="animation-delay: 1s"
+      >
+        <i class="fas fa-palmtree text-white text-2xl opacity-70"></i>
+      </div>
+      <div
+        class="absolute top-1/3 left-1/4 floating-icon"
+        style="animation-delay: 1.5s"
+      >
+        <i class="fas fa-compass text-white text-2xl opacity-70"></i>
+      </div>
+    </section>
+
+    <!-- Recherche rapide / Formulaire de voyage -->
+    <!-- Section de Recherche améliorée -->
+    <section class="py-16 bg-white">
+      <div class="container mx-auto px-4">
+        <div
+          class="max-w-4xl mx-auto bg-white rounded-2xl shadow-lg p-6 md:p-8 transform -translate-y-20"
+        >
+          <h2 class="text-2xl md:text-3xl font-bold text-center mb-8">
+            Trouvez votre prochaine aventure
+          </h2>
+          <form id="searchForm" class="grid grid-cols-1 md:grid-cols-4 gap-4">
+            <!-- Destination -->
+            <div class="fade-in">
+              <label for="destination" class="block text-gray-700 mb-2"
+                >Destination</label
+              >
+              <input
+                type="text"
+                id="destination"
+                class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500"
+                placeholder="Où allez-vous?"
+              />
+            </div>
+
+            <!-- Date de départ -->
+            <div class="fade-in" style="animation-delay: 0.2s">
+              <label for="departureDate" class="block text-gray-700 mb-2"
+                >Date de départ</label
+              >
+              <input
+                type="date"
+                id="departureDate"
+                class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500"
+                min=""
+              />
+            </div>
+
+            <!-- Date de retour -->
+            <div class="fade-in" style="animation-delay: 0.4s">
+              <label for="returnDate" class="block text-gray-700 mb-2"
+                >Date de retour</label
+              >
+              <input
+                type="date"
+                id="returnDate"
+                class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500"
+                min=""
+              />
+            </div>
+
+            <!-- Budget -->
+            <div class="fade-in" style="animation-delay: 0.6s">
+              <label for="budget" class="block text-gray-700 mb-2"
+                >Budget</label
+              >
+              <select
+                id="budget"
+                class="w-full p-3 bg-white border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500"
+              >
+                <option value="" disabled selected>
+                  Sélectionnez un budget
+                </option>
+                <option value="500">Moins de 500€</option>
+                <option value="1000">500€ - 1000€</option>
+                <option value="1500">1000€ - 1500€</option>
+                <option value="2000">1500€ - 2000€</option>
+                <option value="2500">2000€ - 2500€</option>
+                <option value="3000">Plus de 2500€</option>
+              </select>
+            </div>
+
+            <!-- Bouton de recherche -->
+            <div
+              class="fade-in flex items-end md:col-span-4"
+              style="animation-delay: 0.8s"
+            >
+              <button
+                type="submit"
+                class="w-full bg-teal-500 hover:bg-teal-600 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-300 transform hover:scale-105 btn-ripple"
+              >
+                Rechercher
+              </button>
+            </div>
+          </form>
+
+          <!-- Résumé de recherche -->
+          <div id="searchSummary" class="mt-6 p-4 bg-teal-50 rounded-lg hidden">
+            <h3 class="font-semibold text-teal-700 mb-2">
+              Résumé de votre recherche :
+            </h3>
+            <p id="summaryText" class="text-teal-600"></p>
           </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Destinations populaires -->
+    <section class="py-16 bg-gray-50">
+      <div class="container mx-auto px-4">
+        <h2 class="text-3xl font-bold text-center mb-12">
+          Destinations populaires
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <!-- Carte 1 -->
+          <div class="bg-white rounded-xl overflow-hidden shadow-md card-hover">
+            <div class="relative overflow-hidden">
+              <img
+                src="https://images.unsplash.com/photo-1537996194471-e657df975ab4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                alt="Bali"
+                class="w-full h-56 object-cover transition-transform duration-500 hover:scale-110"
+              />
+              <span
+                class="absolute top-4 right-4 bg-orange-500 text-white px-3 py-1 rounded-full text-sm font-semibold"
+                >Top 2025</span
+              >
+            </div>
+            <div class="p-6">
+              <h3 class="text-xl font-bold mb-2">Bali, Indonésie</h3>
+              <p class="text-gray-600 mb-4">
+                Découvrez les plages de sable blanc et la culture riche de Bali.
+              </p>
+              <div class="flex justify-between items-center">
+                <span class="text-teal-600 font-bold text-lg"
+                  >À partir de 899€</span
+                >
+                <button class="text-teal-500 hover:text-teal-700 font-semibold">
+                  Voir l'offre
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Carte 2 -->
+          <div class="bg-white rounded-xl overflow-hidden shadow-md card-hover">
+            <div class="relative overflow-hidden">
+              <img
+                src="https://images.unsplash.com/photo-1516483638261-f4dbaf036963?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                alt="Santorini"
+                class="w-full h-56 object-cover transition-transform duration-500 hover:scale-110"
+              />
+              <span
+                class="absolute top-4 right-4 bg-red-500 text-white px-3 py-1 rounded-full text-sm font-semibold"
+                >-20% aujourd'hui</span
+              >
+            </div>
+            <div class="p-6">
+              <h3 class="text-xl font-bold mb-2">Santorini, Grèce</h3>
+              <p class="text-gray-600 mb-4">
+                Vivez des couchers de soleil inoubliables sur les toits blancs.
+              </p>
+              <div class="flex justify-between items-center">
+                <span class="text-teal-600 font-bold text-lg"
+                  >À partir de 749€</span
+                >
+                <button class="text-teal-500 hover:text-teal-700 font-semibold">
+                  Voir l'offre
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Carte 3 -->
+          <div class="bg-white rounded-xl overflow-hidden shadow-md card-hover">
+            <div class="relative overflow-hidden">
+              <img
+                src="https://images.unsplash.com/photo-1562602833-1b183e6e6d72?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                alt="Kyoto"
+                class="w-full h-56 object-cover transition-transform duration-500 hover:scale-110"
+              />
+              <span
+                class="absolute top-4 right-4 bg-teal-500 text-white px-3 py-1 rounded-full text-sm font-semibold"
+                >Nouveau</span
+              >
+            </div>
+            <div class="p-6">
+              <h3 class="text-xl font-bold mb-2">Kyoto, Japon</h3>
+              <p class="text-gray-600 mb-4">
+                Immergez-vous dans la tradition et la modernité japonaise.
+              </p>
+              <div class="flex justify-between items-center">
+                <span class="text-teal-600 font-bold text-lg"
+                  >À partir de 1299€</span
+                >
+                <button class="text-teal-500 hover:text-teal-700 font-semibold">
+                  Voir l'offre
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Pourquoi nous choisir ? -->
+    <section class="py-16 bg-white">
+      <div class="container mx-auto px-4">
+        <h2 class="text-3xl font-bold text-center mb-12">
+          Pourquoi nous choisir ?
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div class="text-center fade-in">
+            <div
+              class="bg-teal-100 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4 icon-hover"
+            >
+              <i class="fas fa-user-tie text-teal-600 text-2xl"></i>
+            </div>
+            <h3 class="text-xl font-bold mb-2">Experts en voyages</h3>
+            <p class="text-gray-600">
+              Notre équipe expérimentée crée des itinéraires personnalisés.
+            </p>
+          </div>
+
+          <div class="text-center fade-in" style="animation-delay: 0.2s">
+            <div
+              class="bg-teal-100 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4 icon-hover"
+            >
+              <i class="fas fa-suitcase text-teal-600 text-2xl"></i>
+            </div>
+            <h3 class="text-xl font-bold mb-2">Forfaits sur mesure</h3>
+            <p class="text-gray-600">
+              Nous adaptons chaque voyage à vos envies et votre budget.
+            </p>
+          </div>
+
+          <div class="text-center fade-in" style="animation-delay: 0.4s">
+            <div
+              class="bg-teal-100 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4 icon-hover"
+            >
+              <i class="fas fa-headset text-teal-600 text-2xl"></i>
+            </div>
+            <h3 class="text-xl font-bold mb-2">Support 24/7</h3>
+            <p class="text-gray-600">
+              Notre équipe est disponible à tout moment pendant votre voyage.
+            </p>
+          </div>
+
+          <div class="text-center fade-in" style="animation-delay: 0.6s">
+            <div
+              class="bg-teal-100 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4 icon-hover"
+            >
+              <i class="fas fa-tag text-teal-600 text-2xl"></i>
+            </div>
+            <h3 class="text-xl font-bold mb-2">Meilleur prix garanti</h3>
+            <p class="text-gray-600">
+              Nous vous garantissons les meilleurs prix du marché.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Voyages en vedette / Offres de la semaine -->
+    <section
+      class="py-16 bg-gradient-to-r from-teal-500 to-blue-500 text-white"
+    >
+      <div class="container mx-auto px-4">
+        <h2 class="text-3xl font-bold text-center mb-12">
+          Offres de la semaine
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <!-- Carte 1 -->
+          <div class="bg-white rounded-xl overflow-hidden shadow-lg tilt-hover">
+            <div class="relative">
+              <img
+                src="https://images.unsplash.com/photo-1552733407-5d5c46c3bb3b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                alt="Thaïlande"
+                class="w-full h-48 object-cover"
+              />
+              <span
+                class="absolute top-4 right-4 bg-orange-500 text-white px-3 py-1 rounded-full text-sm font-semibold"
+                >Offre spéciale</span
+              >
+            </div>
+            <div class="p-6 text-gray-800">
+              <h3 class="text-xl font-bold mb-2">Thaïlande Authentique</h3>
+              <p class="text-gray-600 mb-4">
+                10 jours / 9 nuits - Bangkok, Chiang Mai, Phuket
+              </p>
+              <div class="flex justify-between items-center mb-4">
+                <span class="text-2xl font-bold text-teal-600">1 299€</span>
+                <span class="line-through text-gray-500">1 599€</span>
+              </div>
+              <button
+                class="w-full bg-teal-500 hover:bg-teal-600 text-white font-semibold py-2 px-4 rounded-lg transition-all duration-300 transform hover:scale-105"
+              >
+                Réservez maintenant
+              </button>
+            </div>
+          </div>
+
+          <!-- Carte 2 -->
+          <div class="bg-white rounded-xl overflow-hidden shadow-lg tilt-hover">
+            <div class="relative">
+              <img
+                src="https://images.unsplash.com/photo-1506973035872-a4ec16b8e8d9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                alt="Croatie"
+                class="w-full h-48 object-cover"
+              />
+              <span
+                class="absolute top-4 right-4 bg-orange-500 text-white px-3 py-1 rounded-full text-sm font-semibold"
+                >Offre spéciale</span
+              >
+            </div>
+            <div class="p-6 text-gray-800">
+              <h3 class="text-xl font-bold mb-2">Côte Adriatique</h3>
+              <p class="text-gray-600 mb-4">
+                7 jours / 6 nuits - Dubrovnik, Split, Hvar
+              </p>
+              <div class="flex justify-between items-center mb-4">
+                <span class="text-2xl font-bold text-teal-600">899€</span>
+                <span class="line-through text-gray-500">1 099€</span>
+              </div>
+              <button
+                class="w-full bg-teal-500 hover:bg-teal-600 text-white font-semibold py-2 px-4 rounded-lg transition-all duration-300 transform hover:scale-105"
+              >
+                Réservez maintenant
+              </button>
+            </div>
+          </div>
+
+          <!-- Carte 3 -->
+          <div class="bg-white rounded-xl overflow-hidden shadow-lg tilt-hover">
+            <div class="relative">
+              <img
+                src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                alt="Maroc"
+                class="w-full h-48 object-cover"
+              />
+              <span
+                class="absolute top-4 right-4 bg-orange-500 text-white px-3 py-1 rounded-full text-sm font-semibold"
+                >Offre spéciale</span
+              >
+            </div>
+            <div class="p-6 text-gray-800">
+              <h3 class="text-xl font-bold mb-2">Aventure Marocaine</h3>
+              <p class="text-gray-600 mb-4">
+                8 jours / 7 nuits - Marrakech, Sahara, Fès
+              </p>
+              <div class="flex justify-between items-center mb-4">
+                <span class="text-2xl font-bold text-teal-600">799€</span>
+                <span class="line-through text-gray-500">999€</span>
+              </div>
+              <button
+                class="w-full bg-teal-500 hover:bg-teal-600 text-white font-semibold py-2 px-4 rounded-lg transition-all duration-300 transform hover:scale-105"
+              >
+                Réservez maintenant
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Témoignages clients -->
+    <section class="py-16 bg-gray-50">
+      <div class="container mx-auto px-4">
+        <h2 class="text-3xl font-bold text-center mb-12">
+          Ce que disent nos clients
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <!-- Témoignage 1 -->
+          <div class="bg-white rounded-xl p-6 shadow-md fade-in">
+            <div class="flex items-center mb-4">
+              <img
+                src="https://images.unsplash.com/photo-1494790108755-2616b612b786?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80"
+                alt="Client"
+                class="w-12 h-12 rounded-full mr-4"
+              />
+              <div>
+                <h4 class="font-bold">Marie L.</h4>
+                <div class="flex text-yellow-400">
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                </div>
+              </div>
+            </div>
+            <p class="text-gray-600 mb-4">
+              "Notre voyage à Bali était tout simplement parfait. L'agence a su
+              créer un itinéraire sur mesure qui correspondait parfaitement à
+              nos attentes."
+            </p>
+            <div class="flex items-center">
+              <img
+                src="https://flagcdn.com/w40/id.png"
+                alt="Indonésie"
+                class="w-6 h-4 mr-2"
+              />
+              <span class="text-gray-500">Bali, Indonésie</span>
+            </div>
+          </div>
+
+          <!-- Témoignage 2 -->
+          <div
+            class="bg-white rounded-xl p-6 shadow-md fade-in"
+            style="animation-delay: 0.2s"
+          >
+            <div class="flex items-center mb-4">
+              <img
+                src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80"
+                alt="Client"
+                class="w-12 h-12 rounded-full mr-4"
+              />
+              <div>
+                <h4 class="font-bold">Thomas D.</h4>
+                <div class="flex text-yellow-400">
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                </div>
+              </div>
+            </div>
+            <p class="text-gray-600 mb-4">
+              "Le voyage au Japon organisé par VoyageModerne était incroyable.
+              Chaque détail était pensé et nous avons découvert des endroits
+              magnifiques."
+            </p>
+            <div class="flex items-center">
+              <img
+                src="https://flagcdn.com/w40/jp.png"
+                alt="Japon"
+                class="w-6 h-4 mr-2"
+              />
+              <span class="text-gray-500">Kyoto, Japon</span>
+            </div>
+          </div>
+
+          <!-- Témoignage 3 -->
+          <div
+            class="bg-white rounded-xl p-6 shadow-md fade-in"
+            style="animation-delay: 0.4s"
+          >
+            <div class="flex items-center mb-4">
+              <img
+                src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80"
+                alt="Client"
+                class="w-12 h-12 rounded-full mr-4"
+              />
+              <div>
+                <h4 class="font-bold">Sophie M.</h4>
+                <div class="flex text-yellow-400">
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star-half-alt"></i>
+                </div>
+              </div>
+            </div>
+            <p class="text-gray-600 mb-4">
+              "Notre séjour en Grèce était magique. L'agence a répondu à toutes
+              nos demandes et le support 24/7 nous a rassurés tout au long du
+              voyage."
+            </p>
+            <div class="flex items-center">
+              <img
+                src="https://flagcdn.com/w40/gr.png"
+                alt="Grèce"
+                class="w-6 h-4 mr-2"
+              />
+              <span class="text-gray-500">Santorini, Grèce</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- À propos / Histoire de l'agence -->
+    <section class="py-16 bg-white">
+      <div class="container mx-auto px-4">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <div class="overflow-hidden rounded-2xl">
+            <img
+              src="https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+              alt="Fondateur"
+              class="w-full h-96 object-cover ken-burns"
+            />
+          </div>
+          <div class="fade-in">
+            <h2 class="text-3xl font-bold mb-6">Notre histoire</h2>
+            <p class="text-gray-600 mb-4">
+              Fondée en 2010, VoyageModerne est née de la passion de son
+              créateur, Jean Dupont, pour les voyages authentiques et les
+              rencontres humaines.
+            </p>
+            <p class="text-gray-600 mb-4">
+              Avec plus de 10 ans d'expérience, notre agence s'est spécialisée
+              dans la création de voyages sur mesure qui allient confort,
+              authenticité et découverte.
+            </p>
+            <p class="text-gray-600 mb-6">
+              Notre mission : vous offrir des expériences de voyage uniques qui
+              vous ressemblent et créent des souvenirs inoubliables.
+            </p>
+            <div class="flex items-center">
+              <div
+                class="bg-teal-100 text-teal-800 font-bold py-2 px-4 rounded-lg mr-4"
+              >
+                <span class="text-2xl">10+</span>
+                <div class="text-sm">Années d'expérience</div>
+              </div>
+              <div
+                class="bg-teal-100 text-teal-800 font-bold py-2 px-4 rounded-lg mr-4"
+              >
+                <span class="text-2xl">50K+</span>
+                <div class="text-sm">Voyageurs satisfaits</div>
+              </div>
+              <div
+                class="bg-teal-100 text-teal-800 font-bold py-2 px-4 rounded-lg"
+              >
+                <span class="text-2xl">120+</span>
+                <div class="text-sm">Destinations</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Newsletter / Inscription -->
+    <section class="py-16 bg-gradient-to-r from-blue-500 to-teal-500">
+      <div class="container mx-auto px-4">
+        <div
+          class="max-w-2xl mx-auto bg-white rounded-2xl shadow-lg p-8 text-center"
+        >
+          <h2 class="text-3xl font-bold mb-4">Ne manquez aucune offre</h2>
+          <p class="text-gray-600 mb-6">
+            Rejoignez 50 000+ explorateurs et recevez nos meilleures offres en
+            avant-première
+          </p>
+          <div class="flex flex-col sm:flex-row gap-4">
+            <input
+              type="email"
+              placeholder="Votre adresse email"
+              class="flex-grow p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500"
+            />
+            <button
+              class="bg-teal-500 hover:bg-teal-600 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-300 transform hover:scale-105 hover:rounded-xl"
+            >
+              Recevoir les offres
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-12">
+      <div class="container mx-auto px-4">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           <div>
-            <div>John Doe</div>
-            <div class="text-xs text-light-text">Administrator</div>
+            <h3 class="text-xl font-bold mb-4">VoyageModerne</h3>
+            <p class="text-gray-400 mb-4">
+              Votre agence de voyage pour des expériences uniques et mémorables.
+            </p>
+            <div class="flex space-x-4">
+              <a href="#" class="social-hover text-gray-400 hover:text-white">
+                <i class="fab fa-facebook-f"></i>
+              </a>
+              <a href="#" class="social-hover text-gray-400 hover:text-white">
+                <i class="fab fa-instagram"></i>
+              </a>
+              <a href="#" class="social-hover text-gray-400 hover:text-white">
+                <i class="fab fa-twitter"></i>
+              </a>
+              <a href="#" class="social-hover text-gray-400 hover:text-white">
+                <i class="fab fa-linkedin-in"></i>
+              </a>
+            </div>
           </div>
-        </div>
-      </div>
 
-      <!-- Stats Cards -->
-      <div class="grid grid-cols-4 gap-5 mb-6">
-        <div
-          class="stat-card bg-white rounded-lg p-5 shadow-sm border-l-4 border-primary"
-        >
-          <h3 class="text-light-text mb-2">Total Revenue</h3>
-          <div class="stat-value text-2xl font-bold mb-1">$24,580</div>
-          <div class="stat-change text-success text-xs flex items-center gap-1">
-            <i class="fas fa-arrow-up"></i> 12.5% from last month
+          <div>
+            <h3 class="text-xl font-bold mb-4">Liens rapides</h3>
+            <ul class="space-y-2">
+              <li>
+                <a
+                  href="#"
+                  class="text-gray-400 hover:text-white transition-colors"
+                  >Accueil</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="text-gray-400 hover:text-white transition-colors"
+                  >Destinations</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="text-gray-400 hover:text-white transition-colors"
+                  >Offres spéciales</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="text-gray-400 hover:text-white transition-colors"
+                  >À propos</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="text-gray-400 hover:text-white transition-colors"
+                  >Contact</a
+                >
+              </li>
+            </ul>
           </div>
-        </div>
-        <div
-          class="stat-card bg-white rounded-lg p-5 shadow-sm border-l-4 border-success"
-        >
-          <h3 class="text-light-text mb-2">New Customers</h3>
-          <div class="stat-value text-2xl font-bold mb-1">1,248</div>
-          <div class="stat-change text-success text-xs flex items-center gap-1">
-            <i class="fas fa-arrow-up"></i> 8.2% from last month
-          </div>
-        </div>
-        <div
-          class="stat-card bg-white rounded-lg p-5 shadow-sm border-l-4 border-warning"
-        >
-          <h3 class="text-light-text mb-2">Pending Orders</h3>
-          <div class="stat-value text-2xl font-bold mb-1">56</div>
-          <div class="stat-change text-danger text-xs flex items-center gap-1">
-            <i class="fas fa-arrow-down"></i> 3.4% from last month
-          </div>
-        </div>
-        <div
-          class="stat-card bg-white rounded-lg p-5 shadow-sm border-l-4 border-danger"
-        >
-          <h3 class="text-light-text mb-2">Support Tickets</h3>
-          <div class="stat-value text-2xl font-bold mb-1">18</div>
-          <div class="stat-change text-success text-xs flex items-center gap-1">
-            <i class="fas fa-arrow-down"></i> 22.1% from last month
-          </div>
-        </div>
-      </div>
 
-      <!-- Charts -->
-      <div class="grid grid-cols-3 gap-5 mb-6">
-        <div class="chart-card bg-white rounded-lg p-5 shadow-sm col-span-2">
-          <div class="chart-header flex justify-between items-center mb-4">
-            <h3 class="text-base font-semibold">Revenue Overview</h3>
-            <div class="chart-actions flex gap-2.5">
-              <select
-                class="p-1.5 rounded border border-border-color text-xs bg-white"
+          <div>
+            <h3 class="text-xl font-bold mb-4">Contact</h3>
+            <ul class="space-y-2">
+              <li class="flex items-center">
+                <i class="fas fa-phone-alt mr-2 text-teal-400"></i>
+                <span class="text-gray-400">+33 1 23 45 67 89</span>
+              </li>
+              <li class="flex items-center">
+                <i class="fas fa-envelope mr-2 text-teal-400"></i>
+                <span class="text-gray-400">contact@voyagemoderne.com</span>
+              </li>
+              <li class="flex items-center">
+                <i class="fas fa-map-marker-alt mr-2 text-teal-400"></i>
+                <span class="text-gray-400"
+                  >123 Avenue des Champs, 75008 Paris</span
+                >
+              </li>
+            </ul>
+          </div>
+
+          <div>
+            <h3 class="text-xl font-bold mb-4">Newsletter</h3>
+            <p class="text-gray-400 mb-4">
+              Inscrivez-vous pour recevoir nos offres exclusives.
+            </p>
+            <div class="flex">
+              <input
+                type="email"
+                placeholder="Votre email"
+                class="flex-grow p-2 bg-gray-700 text-white rounded-l-lg focus:outline-none"
+              />
+              <button
+                class="bg-teal-500 hover:bg-teal-600 text-white px-4 rounded-r-lg transition-colors"
               >
-                <option>Last 7 Days</option>
-                <option>Last 30 Days</option>
-                <option>Last 90 Days</option>
-              </select>
+                <i class="fas fa-paper-plane"></i>
+              </button>
             </div>
           </div>
-          <div class="chart-container h-64 relative">
-            <canvas id="revenueChart"></canvas>
-          </div>
         </div>
-        <div class="chart-card bg-white rounded-lg p-5 shadow-sm">
-          <div class="chart-header flex justify-between items-center mb-4">
-            <h3 class="text-base font-semibold">Customer Distribution</h3>
-            <div class="chart-actions flex gap-2.5">
-              <select
-                class="p-1.5 rounded border border-border-color text-xs bg-white"
-              >
-                <option>By Region</option>
-                <option>By Industry</option>
-              </select>
-            </div>
-          </div>
-          <div class="chart-container h-64 relative">
-            <canvas id="customerChart"></canvas>
-          </div>
-        </div>
-      </div>
 
-      <!-- Recent Activities -->
-      <div class="recent-activities bg-white rounded-lg p-5 shadow-sm">
-        <h3 class="text-base font-semibold mb-4">Recent Activities</h3>
-        <div class="activity-list">
-          <div
-            class="activity-item flex items-center py-3 border-b border-border-color"
-          >
-            <div
-              class="activity-icon w-9 h-9 rounded-full bg-primary-light flex items-center justify-center text-primary mr-4"
-            >
-              <i class="fas fa-user-plus"></i>
-            </div>
-            <div class="activity-details flex-1">
-              <p>New customer <strong>Acme Corp</strong> added</p>
-              <div class="activity-time text-xs text-light-text">
-                10 minutes ago
-              </div>
-            </div>
-          </div>
-          <div
-            class="activity-item flex items-center py-3 border-b border-border-color"
-          >
-            <div
-              class="activity-icon w-9 h-9 rounded-full bg-primary-light flex items-center justify-center text-primary mr-4"
-            >
-              <i class="fas fa-file-invoice-dollar"></i>
-            </div>
-            <div class="activity-details flex-1">
-              <p>Invoice <strong>#INV-0042</strong> was paid</p>
-              <div class="activity-time text-xs text-light-text">
-                2 hours ago
-              </div>
-            </div>
-          </div>
-          <div
-            class="activity-item flex items-center py-3 border-b border-border-color"
-          >
-            <div
-              class="activity-icon w-9 h-9 rounded-full bg-primary-light flex items-center justify-center text-primary mr-4"
-            >
-              <i class="fas fa-ticket-alt"></i>
-            </div>
-            <div class="activity-details flex-1">
-              <p>Support ticket <strong>#4872</strong> was resolved</p>
-              <div class="activity-time text-xs text-light-text">
-                5 hours ago
-              </div>
-            </div>
-          </div>
-          <div class="activity-item flex items-center py-3">
-            <div
-              class="activity-icon w-9 h-9 rounded-full bg-primary-light flex items-center justify-center text-primary mr-4"
-            >
-              <i class="fas fa-chart-line"></i>
-            </div>
-            <div class="activity-details flex-1">
-              <p>Monthly sales report generated</p>
-              <div class="activity-time text-xs text-light-text">Yesterday</div>
-            </div>
-          </div>
+        <div
+          class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400"
+        >
+          <p>&copy; 2025 VoyageModerne. Tous droits réservés.</p>
         </div>
       </div>
-    </div>
+    </footer>
 
     <script>
-      // Revenue Chart
-      const revenueCtx = document
-        .getElementById("revenueChart")
-        .getContext("2d");
-      const revenueChart = new Chart(revenueCtx, {
-        type: "line",
-        data: {
-          labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul"],
-          datasets: [
-            {
-              label: "Revenue",
-              data: [12000, 19000, 15000, 25000, 22000, 30000, 28000],
-              borderColor: "#38b6ff",
-              backgroundColor: "rgba(56, 182, 255, 0.1)",
-              borderWidth: 2,
-              fill: true,
-              tension: 0.4,
-            },
-          ],
-        },
-        options: {
-          responsive: true,
-          maintainAspectRatio: false,
-          plugins: {
-            legend: {
-              display: false,
-            },
-          },
-          scales: {
-            y: {
-              beginAtZero: true,
-              grid: {
-                drawBorder: false,
-              },
-              ticks: {
-                callback: function (value) {
-                  return "$" + value / 1000 + "k";
-                },
-              },
-            },
-            x: {
-              grid: {
-                display: false,
-              },
-            },
-          },
-        },
-      });
+      // Initialiser les dates minimum
+      document.addEventListener("DOMContentLoaded", function () {
+        const today = new Date();
+        const tomorrow = new Date(today);
+        tomorrow.setDate(tomorrow.getDate() + 1);
 
-      // Customer Chart
-      const customerCtx = document
-        .getElementById("customerChart")
-        .getContext("2d");
-      const customerChart = new Chart(customerCtx, {
-        type: "doughnut",
-        data: {
-          labels: ["North", "South", "East", "West"],
-          datasets: [
-            {
-              data: [35, 25, 20, 20],
-              backgroundColor: ["#38b6ff", "#10b981", "#f59e0b", "#8b5cf6"],
-              borderWidth: 0,
-            },
-          ],
-        },
-        options: {
-          responsive: true,
-          maintainAspectRatio: false,
-          plugins: {
-            legend: {
-              position: "bottom",
-            },
+        // Formater les dates au format YYYY-MM-DD
+        const formatDate = (date) => {
+          return date.toISOString().split("T")[0];
+        };
+
+        // Définir les dates minimum
+        document.getElementById("departureDate").min = formatDate(tomorrow);
+        document.getElementById("returnDate").min = formatDate(tomorrow);
+
+        // Mettre à jour la date de retour minimum quand la date de départ change
+        document
+          .getElementById("departureDate")
+          .addEventListener("change", function () {
+            const departureDate = new Date(this.value);
+            const minReturnDate = new Date(departureDate);
+            minReturnDate.setDate(minReturnDate.getDate() + 1);
+
+            document.getElementById("returnDate").min =
+              formatDate(minReturnDate);
+
+            // Si la date de retour actuelle est avant la nouvelle date minimum, la réinitialiser
+            const currentReturnDate = new Date(
+              document.getElementById("returnDate").value
+            );
+            if (currentReturnDate < minReturnDate) {
+              document.getElementById("returnDate").value = "";
+            }
+          });
+
+        // Gérer la soumission du formulaire
+        document
+          .getElementById("searchForm")
+          .addEventListener("submit", function (e) {
+            e.preventDefault();
+
+            const destination = document.getElementById("destination").value;
+            const departureDate =
+              document.getElementById("departureDate").value;
+            const returnDate = document.getElementById("returnDate").value;
+            const budget = document.getElementById("budget").value;
+
+            // Validation
+            if (!destination || !departureDate || !returnDate || !budget) {
+              alert("Veuillez remplir tous les champs du formulaire.");
+              return;
+            }
+
+            // Afficher le résumé
+            const summaryText = document.getElementById("summaryText");
+            const budgetText = document.querySelector(
+              `#budget option[value="${budget}"]`
+            ).textContent;
+
+            summaryText.textContent = `Destination: ${destination}, Départ: ${formatDisplayDate(
+              departureDate
+            )}, Retour: ${formatDisplayDate(
+              returnDate
+            )}, Budget: ${budgetText}`;
+
+            document.getElementById("searchSummary").classList.remove("hidden");
+
+            // Animation d'apparition
+            setTimeout(() => {
+              document
+                .getElementById("searchSummary")
+                .classList.add("opacity-0");
+              document
+                .getElementById("searchSummary")
+                .classList.remove("opacity-100");
+            }, 5000);
+          });
+
+        // Formater la date pour l'affichage (JJ/MM/AAAA)
+        function formatDisplayDate(dateString) {
+          const date = new Date(dateString);
+          return date.toLocaleDateString("fr-FR");
+        }
+
+        // Animation d'apparition au défilement
+        const fadeElements = document.querySelectorAll(".fade-in");
+
+        const fadeInObserver = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add("visible");
+              }
+            });
           },
-          cutout: "70%",
-        },
+          { threshold: 0.1 }
+        );
+
+        fadeElements.forEach((element) => {
+          fadeInObserver.observe(element);
+        });
+
+        // Mobile menu functionality
+        const mobileMenuButton = document.getElementById("mobile-menu-button");
+        const mobileMenu = document.getElementById("mobile-menu");
+
+        mobileMenuButton.addEventListener("click", function () {
+          mobileMenu.classList.toggle("hidden");
+        });
+
+        // Navbar scroll effect
+        window.addEventListener("scroll", function () {
+          const navbar = document.querySelector(".navbar");
+          if (window.scrollY > 50) {
+            navbar.classList.add("scrolled");
+            // Change text color when scrolled
+            const logoText = document.querySelector(
+              ".navbar a span:last-child"
+            );
+            const menuItems = document.querySelectorAll(
+              ".navbar a:not(.navbar a:first-child)"
+            );
+
+            if (logoText) logoText.classList.remove("text-white");
+            if (logoText) logoText.classList.add("text-gray-800");
+
+            menuItems.forEach((item) => {
+              item.classList.remove("text-white");
+              item.classList.add("text-gray-800");
+              item.classList.remove("hover:text-teal-300");
+              item.classList.add("hover:text-teal-500");
+            });
+          } else {
+            navbar.classList.remove("scrolled");
+            // Revert text color when at top
+            const logoText = document.querySelector(
+              ".navbar a span:last-child"
+            );
+            const menuItems = document.querySelectorAll(
+              ".navbar a:not(.navbar a:first-child)"
+            );
+
+            if (logoText) logoText.classList.add("text-white");
+            if (logoText) logoText.classList.remove("text-gray-800");
+
+            menuItems.forEach((item) => {
+              item.classList.add("text-white");
+              item.classList.remove("text-gray-800");
+              item.classList.add("hover:text-teal-300");
+              item.classList.remove("hover:text-teal-500");
+            });
+          }
+        });
       });
     </script>
   </body>

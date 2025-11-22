@@ -15,6 +15,7 @@ loadComponent("navbar", "./components/navbarComp.html", () => {
 loadComponent("hero", "./components/heroComp.html");
 loadComponent("services", "./components/servicesComp.html");
 loadComponent("about", "./components/aboutComp.html");
+loadComponent("testimonials", "./components/testimonialsComp.html");
 
 loadComponent("contact", "./components/contactComp.html");
 loadComponent("footer", "./components/footerComp.html");

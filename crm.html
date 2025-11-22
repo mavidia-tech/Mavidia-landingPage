@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CRM Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              primary: "#38b6ff",
+              "primary-light": "#e6f7ff",
+              "sidebar-bg": "#1e293b",
+              "sidebar-text": "#cbd5e1",
+              "sidebar-active": "#38b6ff",
+              "card-bg": "#ffffff",
+              "text-color": "#334155",
+              "light-text": "#64748b",
+              "border-color": "#e2e8f0",
+              success: "#10b981",
+              warning: "#f59e0b",
+              danger: "#ef4444",
+            },
+          },
+        },
+      };
+    </script>
+  </head>
+  <body class="bg-gray-50 text-text-color text-sm flex">
+    <!-- Sidebar -->
+    <div
+      class="w-64 bg-sidebar-bg text-sidebar-text h-screen fixed transition-all duration-300 z-50"
+    >
+      <div class="p-3 border-b border-gray-700 flex items-center gap-2.5">
+        <img src="/logo.svg" />
+        <h1 class="text-white font-semibold text-base">Mavidia CRM</h1>
+      </div>
+      <div class="py-4">
+        <div
+          class="menu-item py-3 px-5 flex items-center gap-3 cursor-pointer transition-all duration-200 bg-gray-800 text-primary border-l-4 border-primary"
+        >
+          <i class="fas fa-home w-5 text-center"></i>
+          <span>Dashboard</span>
+        </div>
+        <div
+          class="menu-item py-3 px-5 flex items-center gap-3 cursor-pointer transition-all duration-200 hover:bg-gray-800 hover:text-white"
+        >
+          <i class="fas fa-users w-5 text-center"></i>
+          <span>Customers</span>
+        </div>
+        <div
+          class="menu-item py-3 px-5 flex items-center gap-3 cursor-pointer transition-all duration-200 hover:bg-gray-800 hover:text-white"
+        >
+          <i class="fas fa-shopping-cart w-5 text-center"></i>
+          <span>Sales</span>
+        </div>
+        <div
+          class="menu-item py-3 px-5 flex items-center gap-3 cursor-pointer transition-all duration-200 hover:bg-gray-800 hover:text-white"
+        >
+          <i class="fas fa-tasks w-5 text-center"></i>
+          <span>Projects</span>
+        </div>
+        <div
+          class="menu-item py-3 px-5 flex items-center gap-3 cursor-pointer transition-all duration-200 hover:bg-gray-800 hover:text-white"
+        >
+          <i class="fas fa-calendar-alt w-5 text-center"></i>
+          <span>Calendar</span>
+        </div>
+        <div
+          class="menu-item py-3 px-5 flex items-center gap-3 cursor-pointer transition-all duration-200 hover:bg-gray-800 hover:text-white"
+        >
+          <i class="fas fa-chart-bar w-5 text-center"></i>
+          <span>Reports</span>
+        </div>
+        <div
+          class="menu-item py-3 px-5 flex items-center gap-3 cursor-pointer transition-all duration-200 hover:bg-gray-800 hover:text-white"
+        >
+          <i class="fas fa-cog w-5 text-center"></i>
+          <span>Settings</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="ml-64 flex-1 p-5">
+      <!-- Header -->
+      <div class="flex justify-between items-center mb-6">
+        <h2 class="text-xl font-semibold text-text-color">Dashboard</h2>
+        <div class="user-info flex items-center gap-4">
+          <div
+            class="user-avatar w-10 h-10 rounded-full bg-primary flex items-center justify-center text-white font-semibold"
+          >
+            JD
+          </div>
+          <div>
+            <div>John Doe</div>
+            <div class="text-xs text-light-text">Administrator</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Stats Cards -->
+      <div class="grid grid-cols-4 gap-5 mb-6">
+        <div
+          class="stat-card bg-white rounded-lg p-5 shadow-sm border-l-4 border-primary"
+        >
+          <h3 class="text-light-text mb-2">Total Revenue</h3>
+          <div class="stat-value text-2xl font-bold mb-1">$24,580</div>
+          <div class="stat-change text-success text-xs flex items-center gap-1">
+            <i class="fas fa-arrow-up"></i> 12.5% from last month
+          </div>
+        </div>
+        <div
+          class="stat-card bg-white rounded-lg p-5 shadow-sm border-l-4 border-success"
+        >
+          <h3 class="text-light-text mb-2">New Customers</h3>
+          <div class="stat-value text-2xl font-bold mb-1">1,248</div>
+          <div class="stat-change text-success text-xs flex items-center gap-1">
+            <i class="fas fa-arrow-up"></i> 8.2% from last month
+          </div>
+        </div>
+        <div
+          class="stat-card bg-white rounded-lg p-5 shadow-sm border-l-4 border-warning"
+        >
+          <h3 class="text-light-text mb-2">Pending Orders</h3>
+          <div class="stat-value text-2xl font-bold mb-1">56</div>
+          <div class="stat-change text-danger text-xs flex items-center gap-1">
+            <i class="fas fa-arrow-down"></i> 3.4% from last month
+          </div>
+        </div>
+        <div
+          class="stat-card bg-white rounded-lg p-5 shadow-sm border-l-4 border-danger"
+        >
+          <h3 class="text-light-text mb-2">Support Tickets</h3>
+          <div class="stat-value text-2xl font-bold mb-1">18</div>
+          <div class="stat-change text-success text-xs flex items-center gap-1">
+            <i class="fas fa-arrow-down"></i> 22.1% from last month
+          </div>
+        </div>
+      </div>
+
+      <!-- Charts -->
+      <div class="grid grid-cols-3 gap-5 mb-6">
+        <div class="chart-card bg-white rounded-lg p-5 shadow-sm col-span-2">
+          <div class="chart-header flex justify-between items-center mb-4">
+            <h3 class="text-base font-semibold">Revenue Overview</h3>
+            <div class="chart-actions flex gap-2.5">
+              <select
+                class="p-1.5 rounded border border-border-color text-xs bg-white"
+              >
+                <option>Last 7 Days</option>
+                <option>Last 30 Days</option>
+                <option>Last 90 Days</option>
+              </select>
+            </div>
+          </div>
+          <div class="chart-container h-64 relative">
+            <canvas id="revenueChart"></canvas>
+          </div>
+        </div>
+        <div class="chart-card bg-white rounded-lg p-5 shadow-sm">
+          <div class="chart-header flex justify-between items-center mb-4">
+            <h3 class="text-base font-semibold">Customer Distribution</h3>
+            <div class="chart-actions flex gap-2.5">
+              <select
+                class="p-1.5 rounded border border-border-color text-xs bg-white"
+              >
+                <option>By Region</option>
+                <option>By Industry</option>
+              </select>
+            </div>
+          </div>
+          <div class="chart-container h-64 relative">
+            <canvas id="customerChart"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <!-- Recent Activities -->
+      <div class="recent-activities bg-white rounded-lg p-5 shadow-sm">
+        <h3 class="text-base font-semibold mb-4">Recent Activities</h3>
+        <div class="activity-list">
+          <div
+            class="activity-item flex items-center py-3 border-b border-border-color"
+          >
+            <div
+              class="activity-icon w-9 h-9 rounded-full bg-primary-light flex items-center justify-center text-primary mr-4"
+            >
+              <i class="fas fa-user-plus"></i>
+            </div>
+            <div class="activity-details flex-1">
+              <p>New customer <strong>Acme Corp</strong> added</p>
+              <div class="activity-time text-xs text-light-text">
+                10 minutes ago
+              </div>
+            </div>
+          </div>
+          <div
+            class="activity-item flex items-center py-3 border-b border-border-color"
+          >
+            <div
+              class="activity-icon w-9 h-9 rounded-full bg-primary-light flex items-center justify-center text-primary mr-4"
+            >
+              <i class="fas fa-file-invoice-dollar"></i>
+            </div>
+            <div class="activity-details flex-1">
+              <p>Invoice <strong>#INV-0042</strong> was paid</p>
+              <div class="activity-time text-xs text-light-text">
+                2 hours ago
+              </div>
+            </div>
+          </div>
+          <div
+            class="activity-item flex items-center py-3 border-b border-border-color"
+          >
+            <div
+              class="activity-icon w-9 h-9 rounded-full bg-primary-light flex items-center justify-center text-primary mr-4"
+            >
+              <i class="fas fa-ticket-alt"></i>
+            </div>
+            <div class="activity-details flex-1">
+              <p>Support ticket <strong>#4872</strong> was resolved</p>
+              <div class="activity-time text-xs text-light-text">
+                5 hours ago
+              </div>
+            </div>
+          </div>
+          <div class="activity-item flex items-center py-3">
+            <div
+              class="activity-icon w-9 h-9 rounded-full bg-primary-light flex items-center justify-center text-primary mr-4"
+            >
+              <i class="fas fa-chart-line"></i>
+            </div>
+            <div class="activity-details flex-1">
+              <p>Monthly sales report generated</p>
+              <div class="activity-time text-xs text-light-text">Yesterday</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Revenue Chart
+      const revenueCtx = document
+        .getElementById("revenueChart")
+        .getContext("2d");
+      const revenueChart = new Chart(revenueCtx, {
+        type: "line",
+        data: {
+          labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul"],
+          datasets: [
+            {
+              label: "Revenue",
+              data: [12000, 19000, 15000, 25000, 22000, 30000, 28000],
+              borderColor: "#38b6ff",
+              backgroundColor: "rgba(56, 182, 255, 0.1)",
+              borderWidth: 2,
+              fill: true,
+              tension: 0.4,
+            },
+          ],
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              display: false,
+            },
+          },
+          scales: {
+            y: {
+              beginAtZero: true,
+              grid: {
+                drawBorder: false,
+              },
+              ticks: {
+                callback: function (value) {
+                  return "$" + value / 1000 + "k";
+                },
+              },
+            },
+            x: {
+              grid: {
+                display: false,
+              },
+            },
+          },
+        },
+      });
+
+      // Customer Chart
+      const customerCtx = document
+        .getElementById("customerChart")
+        .getContext("2d");
+      const customerChart = new Chart(customerCtx, {
+        type: "doughnut",
+        data: {
+          labels: ["North", "South", "East", "West"],
+          datasets: [
+            {
+              data: [35, 25, 20, 20],
+              backgroundColor: ["#38b6ff", "#10b981", "#f59e0b", "#8b5cf6"],
+              borderWidth: 0,
+            },
+          ],
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              position: "bottom",
+            },
+          },
+          cutout: "70%",
+        },
+      });
+    </script>
+  </body>
+</html>
